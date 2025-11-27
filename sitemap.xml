@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
@@ -11,7 +10,7 @@
   <url>
     <loc>https://qeraai.in/signals</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 
   <url>
@@ -21,9 +20,9 @@
   </url>
 
   <url>
-    <loc>https://qeraai.in/twekee</loc>
+    <loc>https://qeraai.in/tweekee</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 
   <url>
@@ -45,22 +44,27 @@
   </url>
 
   <url>
+    <loc>https://qeraai.in/contribution</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://qeraai.in/founder</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://qeraai.in/company</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://qeraai.in/contact</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
-
