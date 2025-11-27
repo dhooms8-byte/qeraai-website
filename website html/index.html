@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Qera AI LLP is building India’s first Quantum-Aware Intelligence (QAI) ecosystem, starting with Twekee – a unified next-generation intelligence assistant."
+  />
+  <title>Qera AI LLP – QAI Bridge</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- GSAP for smooth animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #050710;
+      --bg-card: rgba(15, 20, 35, 0.9);
+      --accent: #00e5ff;
+      --accent-soft: rgba(0, 229, 255, 0.25);
+      --text-main: #f5f7ff;
+      --text-soft: #a4afc6;
+      --border-soft: rgba(255, 255, 255, 0.1);
+      --shadow-soft: 0 0 40px rgba(0, 229, 255, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #02030a;
+      color: var(--text-main);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::before {
+      background: radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.28), transparent 45%),
+        radial-gradient(circle at 80% 0%, rgba(81, 255, 230, 0.35), transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(87, 119, 255, 0.22), transparent 35%);
+      filter: blur(60px);
+      animation: glowShift 16s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 120px 120px;
+      opacity: 0.45;
+      mix-blend-mode: screen;
+      transform: perspective(900px) rotateX(65deg);
+      transform-origin: top;
+      top: -40%;
+    }
+
+    .cosmic-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: screen;
+    }
+
+    .cosmic-stars {
+      background-image: radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.2) 2px, transparent 40px),
+        radial-gradient(circle at 80% 30%, rgba(81, 255, 230, 0.15) 3px, transparent 50px),
+        radial-gradient(circle at 50% 80%, rgba(92, 82, 255, 0.1) 4px, transparent 60px);
+      animation: starPulse 22s ease-in-out infinite alternate;
+      opacity: 0.35;
+    }
+
+    .cosmic-nodes {
+      background-image: radial-gradient(circle at 15% 35%, rgba(0, 229, 255, 0.35), transparent 55%),
+        radial-gradient(circle at 75% 65%, rgba(119, 71, 255, 0.3), transparent 50%),
+        radial-gradient(circle at 40% 85%, rgba(255, 86, 197, 0.18), transparent 60%);
+      filter: blur(90px);
+      animation: nodeFloat 28s linear infinite alternate;
+      opacity: 0.45;
+    }
+
+    .cosmic-streaks {
+      background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.05) 10%, transparent 40%),
+        linear-gradient(-140deg, rgba(0, 229, 255, 0.05) 15%, transparent 45%);
+      background-size: 200% 200%;
+      animation: streakFlow 18s linear infinite;
+      opacity: 0.3;
+    }
+
+    @keyframes starPulse {
+      0% {
+        transform: scale(1) translate3d(0, 0, 0);
+        opacity: 0.2;
+      }
+      100% {
+        transform: scale(1.08) translate3d(-1%, -1%, 0);
+        opacity: 0.45;
+      }
+    }
+
+    @keyframes nodeFloat {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      100% {
+        transform: translate3d(-4%, 3%, 0) scale(1.1);
+      }
+    }
+
+    @keyframes streakFlow {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: 120% 120%;
+      }
+    }
+
+    @keyframes glowShift {
+      0% {
+        filter: hue-rotate(0deg) blur(60px);
+      }
+      50% {
+        filter: hue-rotate(80deg) blur(80px);
+      }
+      100% {
+        filter: hue-rotate(150deg) blur(60px);
+      }
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0 0 12px 0;
+      letter-spacing: 0.06em;
+    }
+
+    p {
+      margin: 0 0 10px 0;
+      color: var(--text-soft);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    section {
+      padding: 120px 10%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .aura-gradient {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 70% 20%, rgba(0, 229, 255, 0.2), transparent 45%),
+        radial-gradient(circle at 10% 60%, rgba(81, 255, 230, 0.15), transparent 35%);
+      z-index: 0;
+      mix-blend-mode: screen;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      100% {
+        transform: translate3d(-4%, 3%, 0) scale(1.08);
+      }
+    }
+
+    .cursor-dot,
+    .cursor-outline {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.08s ease-out;
+      opacity: 0;
+    }
+
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.9);
+      mix-blend-mode: screen;
+    }
+
+    .cursor-outline {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.35);
+      transition: width 0.2s ease, height 0.2s ease, border 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* ------------- NAVBAR ------------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8%;
+      z-index: 1000;
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 7, 16, 0.95),
+        rgba(5, 7, 16, 0.75),
+        transparent
+      );
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 24px rgba(0, 229, 255, 0.9));
+    }
+
+    .logo-text-main {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-soft);
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-badge {
+      border-radius: 999px;
+      border: 1px solid rgba(0, 229, 255, 0.5);
+      padding: 5px 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: radial-gradient(circle at top left, rgba(0, 229, 255, 0.25), transparent);
+    }
+
+    /* ------------- HERO ------------- */
+    #home {
+      height: 100vh;
+      padding-top: 120px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: center;
+      gap: 40px;
+      position: relative;
+    }
+
+    #home::before {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border-radius: 32px;
+      border: 1px solid rgba(0, 229, 255, 0.06);
+      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.05), transparent 55%);
+      backdrop-filter: blur(30px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    #home::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(0, 229, 255, 0.08), transparent 40%),
+        linear-gradient(-120deg, rgba(81, 255, 230, 0.08), transparent 45%);
+      z-index: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    /* Canvas background behind hero only */
+    #hero-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-gridlines {
+      position: absolute;
+      inset: -60px;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 140px 140px;
+      opacity: 0.3;
+      z-index: 0;
+      animation: panGrid 18s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes panGrid {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-120px);
+      }
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.2), rgba(5, 7, 16, 0.9));
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.9);
+    }
+
+    .hero-tagline {
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .hero-title-main {
+      font-size: clamp(38px, 4vw, 48px);
+      margin-bottom: 8px;
+    }
+
+    .hero-title-sub {
+      font-size: 18px;
+      color: var(--text-soft);
+      margin-bottom: 20px;
+    }
+
+    .hero-copy {
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease,
+        color 0.15s ease;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00e5ff, #51ffe6);
+      color: #020308;
+      box-shadow: 0 0 28px rgba(0, 229, 255, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 40px rgba(0, 229, 255, 0.7);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 229, 255, 0.12);
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.45);
+    }
+
+    .hero-subnote {
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 360px;
+    }
+
+    .hero-subnote strong {
+      color: var(--accent);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .metric-card {
+      position: relative;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 8, 22, 0.7);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.18), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .metric-card:hover::before {
+      opacity: 1;
+    }
+
+    .metric-card h4 {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 6px;
+    }
+
+    .metric-value {
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .metric-caption {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .hero-floating-panels {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-panel {
+      position: absolute;
+      min-width: 160px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      background: rgba(2, 8, 18, 0.8);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      animation: float 8s ease-in-out infinite;
+      backdrop-filter: blur(10px);
+      pointer-events: none;
+    }
+
+    .floating-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.3), transparent 60%);
+      opacity: 0.4;
+      z-index: -1;
+    }
+
+    .floating-panel strong {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .floating-panel span {
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    .floating-panel.one {
+      top: -20px;
+      right: -10px;
+      animation-delay: 0s;
+    }
+
+    .floating-panel.two {
+      bottom: -40px;
+      right: 80px;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      50% {
+        transform: translate3d(0, -16px, 0);
+      }
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .q-orbit-wrapper {
+      position: relative;
+      width: min(90vw, 460px);
+      height: min(90vw, 460px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(0, 229, 255, 0.55), transparent 68%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 80px rgba(0, 229, 255, 0.5);
+    }
+
+    .q-orbit {
+      position: relative;
+      width: calc(100% - 60px);
+      height: calc(100% - 60px);
+      border-radius: 50%;
+      border: 1px solid rgba(0, 229, 255, 0.32);
+      box-shadow: inset 0 0 55px rgba(0, 229, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      filter: drop-shadow(0 0 55px rgba(0, 229, 255, 0.35));
+    }
+
+    .orbit-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .orbit-ring::before,
+    .orbit-ring::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      border: 1px dashed rgba(0, 229, 255, 0.35);
+      inset: 14%;
+    }
+
+    .orbit-ring::after {
+      inset: 28%;
+      border-style: solid;
+      border-color: rgba(0, 229, 255, 0.18);
+    }
+
+    .q-icon-circle {
+      width: min(calc(100% - 140px), 320px);
+      height: min(calc(100% - 140px), 320px);
+      min-width: 220px;
+      min-height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top, #05070f, #06090f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 65px rgba(0, 229, 255, 0.75);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .q-icon-circle::after {
+      content: "";
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.25), transparent 65%);
+      filter: blur(30px);
+      opacity: 0.7;
+      z-index: -1;
+    }
+
+    .q-icon-circle img {
+      width: clamp(220px, 88%, 340px);
+      height: clamp(220px, 88%, 340px);
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 0 40px rgba(0, 229, 255, 0.6));
+    }
+
+    .orbit-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.9);
+    }
+
+    .orbit-dot.one {
+      top: 6%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .orbit-dot.two {
+      bottom: 6%;
+      left: 18%;
+    }
+
+    .orbit-dot.three {
+      bottom: 16%;
+      right: 8%;
+    }
+
+    .q-orbit-caption {
+      position: absolute;
+      bottom: -44px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .hero-status-strip {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(1, 7, 20, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10ff7a;
+      box-shadow: 0 0 12px rgba(16, 255, 122, 0.9);
+    }
+
+    /* ------------- SECTIONS SHARED ------------- */
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-header {
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+
+    .section-grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .highlight-box {
+      border-radius: 16px;
+      padding: 18px 20px;
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      background: radial-gradient(circle at top left, rgba(0, 229, 255, 0.2), rgba(7, 10, 25, 0.9));
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+      margin-top: 16px;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 13, 25, 0.9);
+      color: var(--text-soft);
+    }
+
+    .quantum-stream {
+      margin-top: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      background: rgba(3, 6, 16, 0.8);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .quantum-stream::before {
+      content: "Real-time intelligence pulse";
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .quantum-stream ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 240px;
+      overflow: hidden;
+      animation: slideLoop 22s linear infinite;
+    }
+
+    .quantum-stream li {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .quantum-stream li:last-child {
+      border-bottom: none;
+    }
+
+    .quantum-stream strong {
+      color: var(--accent);
+    }
+
+    @keyframes slideLoop {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    .signal-panel {
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.1), rgba(7, 11, 24, 0.95));
+      box-shadow: var(--shadow-soft);
+    }
+
+    .signal-panel h3 {
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .signal-feed {
+      position: relative;
+      height: 120px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      background: rgba(2, 6, 16, 0.8);
+      overflow: hidden;
+    }
+
+    .signal-line {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.6), transparent);
+      animation: pulseLine 3s linear infinite;
+    }
+
+    @keyframes pulseLine {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .signal-point {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.9);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .timeline-wrapper {
+      margin-top: 40px;
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid rgba(0, 229, 255, 0.18);
+      background: rgba(5, 7, 16, 0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .timeline-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(2, 5, 14, 0.85);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .timeline-item:hover {
+      border-color: rgba(0, 229, 255, 0.6);
+      transform: translateY(-4px);
+    }
+
+    .timeline-node {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 229, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .timeline-node::after {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 229, 255, 0.4);
+      animation: rotate 12s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .timeline-label {
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .flux-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    .flux-card {
+      position: relative;
+      padding: 24px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(4, 6, 14, 0.9);
+      overflow: hidden;
+    }
+
+    .flux-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.2), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .flux-card:hover::before {
+      opacity: 1;
+    }
+
+    .flux-card .tag {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .flux-card h3 {
+      margin: 12px 0 8px;
+      font-size: 18px;
+    }
+
+    .flux-card p {
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    /* ------------- ECOSYSTEM CARDS ------------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    .card {
+      padding: 18px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-card);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
+        background 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.14), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 229, 255, 0.7);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+      background: radial-gradient(circle at top left, rgba(0, 229, 255, 0.15), #0b0f1e);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .card-pill {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* ------------- FOUNDER ------------- */
+    .founder-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .founder-photos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .founder-photo-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      height: 320px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 0 40px rgba(0, 229, 255, 0.4);
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.2), #050713);
+    }
+
+    .founder-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: lighten;
+    }
+
+    .founder-glow {
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at top, rgba(0, 229, 255, 0.5), transparent 60%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .founder-tag {
+      position: absolute;
+      bottom: 10px;
+      left: 14px;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #e3faff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .founder-text h3 {
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    .founder-role {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .founder-divider {
+      margin: 24px 0 16px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(0, 229, 255, 0.7), transparent);
+      border-radius: 999px;
+    }
+
+    /* ------------- COMPANY & CONTACT ------------- */
+    .contact-list p {
+      margin-bottom: 6px;
+    }
+
+    .contact-email {
+      color: var(--accent);
+    }
+
+    .footer {
+      padding: 32px 10%;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 13px;
+      color: var(--text-soft);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      background: #050711;
+    }
+
+    .footer-links a {
+      margin-left: 12px;
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ------------- RESPONSIVE ------------- */
+    @media (max-width: 950px) {
+      .nav-links {
+        display: none; /* simple for v2 – mobile menu can be added later */
+      }
+
+      section {
+        padding: 100px 7%;
+      }
+
+      #home {
+        grid-template-columns: minmax(0, 1fr);
+        height: auto;
+        padding-top: 110px;
+      }
+
+      .hero-right {
+        margin-top: 40px;
+      }
+
+      .section-grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .founder-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .founder-photos-grid {
+        justify-content: center;
+      }
+
+      .founder-photo-wrap {
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cards-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+
+      .q-orbit-wrapper {
+        width: min(85vw, 340px);
+        height: min(85vw, 340px);
+      }
+
+      .founder-photos-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas for particle background -->
+  <canvas id="hero-canvas"></canvas>
+  <div class="cosmic-layer cosmic-stars"></div>
+  <div class="cosmic-layer cosmic-nodes"></div>
+  <div class="cosmic-layer cosmic-streaks"></div>
+  <div class="aura-gradient"></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <!-- 🔷 Company Logo — replace src with your actual logo path -->
+      <img src="assets/logo.png" alt="Qera AI Logo" class="logo-img" />
+      <div>
+        <div class="logo-text-main">QERA AI LLP</div>
+        <div class="logo-text-sub">Quantum-Aware Intelligence</div>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#signals">Signals</a>
+      <a href="#qai">QAI Bridge</a>
+      <a href="#twekee">Twekee</a>
+      <a href="#immersive">Immersive</a>
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#vision">Vision</a>
+      <a href="#contribution">Contribution</a>
+      <a href="#founder">Founder</a>
+      <a href="#company">Company</a>
+      <a href="#contact">Contact</a>
+      <div class="nav-badge">Private Build · 2025</div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-gridlines"></div>
+    <div class="hero-floating-panels">
+      <div class="floating-panel one">
+        <strong>QAI Bridge</strong>
+        <span>Adaptive orchestration online</span>
+      </div>
+      <div class="floating-panel two">
+        <strong>Signal Strength</strong>
+        <span>Stable · 99.3% uptime</span>
+      </div>
+    </div>
+    <div class="hero-left">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        <span>Born in Tamil Nadu · Built for the World</span>
+      </div>
+
+      <div class="hero-tagline">Building India’s First Quantum-Aware Intelligence Ecosystem Begins Here</div>
+
+      <h1 class="hero-title-main">Qera AI</h1>
+      <h2 class="hero-title-sub">Introducing Twekee – powered by the QAI orchestration layer.</h2>
+
+      <p class="hero-copy">
+        Twekee is India’s First unified next-generation intelligence assistant, designed on a Quantum-Aware
+        Intelligence (QAI) layer that connects today’s AI systems towards AGI-like behavior, Twekee aligns your context, runs QAI evaluation, and delivers precise answers.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#qai" class="btn btn-primary">
+          Explore QAI Bridge
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          Contact Qera AI
+        </a>
+      </div>
+
+      <p class="hero-subnote">
+        <strong>Private Build · 2025</strong> · Target Public Launch · 2026<br />
+        Born in Tamil Nadu. Designed in India. Built for the world.
+      </p>
+
+      <div class="hero-metrics">
+        <article class="metric-card" data-tilt>
+          <h4>Latency</h4>
+          <div class="metric-value">32ms</div>
+          <div class="metric-caption">Avg orchestration response</div>
+        </article>
+        <article class="metric-card" data-tilt>
+          <h4>Contexts</h4>
+          <div class="metric-value">+1.8M</div>
+          <div class="metric-caption">Simulated memory frames</div>
+        </article>
+        <article class="metric-card" data-tilt>
+          <h4>Bridges</h4>
+          <div class="metric-value">47</div>
+          <div class="metric-caption">Tools connected via QAI</div>
+        </article>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="q-orbit-wrapper">
+        <div class="hero-status-strip">
+          <span class="hero-status-dot"></span>
+          <span>QAI Layer · Online</span>
+        </div>
+
+        <div class="q-orbit">
+          <div class="orbit-ring">
+            <span class="orbit-dot one"></span>
+            <span class="orbit-dot two"></span>
+            <span class="orbit-dot three"></span>
+          </div>
+          <div class="q-icon-circle">
+            <!-- 🔷 Q Symbol – replace src with your stylized Q icon -->
+            <img src="assets/q-symbol.png" alt="Q Symbol" />
+          </div>
+
+          <div class="q-orbit-caption">AI → QAI → AGI</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNALS -->
+  <section id="signals">
+    <div class="section-label">Live Signals</div>
+    <h2 class="section-header">Intelligence Pulse from the QAI Bridge</h2>
+    <p>
+      A living orchestration layer deserves a living dashboard. These live-inspired signals showcase how QAI
+      choreographs tools, context and reasoning flows in real time.
+    </p>
+
+    <div class="signal-grid">
+      <div class="signal-panel" data-tilt>
+        <h3>Context Stability</h3>
+        <div class="signal-feed">
+          <span class="signal-line"></span>
+          <span class="signal-point" style="top: 35%; left: 20%;"></span>
+          <span class="signal-point" style="top: 55%; left: 52%; animation-delay: 0.6s;"></span>
+          <span class="signal-point" style="top: 28%; left: 78%; animation-delay: 1.2s;"></span>
+        </div>
+        <p style="margin-top: 12px;">Long-horizon memory threads stay synced across Twekee and partner stacks.</p>
+      </div>
+
+      <div class="signal-panel" data-tilt>
+        <h3>Reasoning Heat</h3>
+        <div class="signal-feed">
+          <span class="signal-line"></span>
+          <span class="signal-point" style="top: 40%; left: 12%; animation-delay: 0.2s;"></span>
+          <span class="signal-point" style="top: 65%; left: 38%; animation-delay: 0.8s;"></span>
+          <span class="signal-point" style="top: 30%; left: 64%; animation-delay: 1.4s;"></span>
+        </div>
+        <p style="margin-top: 12px;">QAI routes reasoning chains to the optimal tool mix and returns audit-ready traces.</p>
+      </div>
+
+      <div class="signal-panel" data-tilt>
+        <h3>Bridge Integrity</h3>
+        <div class="signal-feed">
+          <span class="signal-line"></span>
+          <span class="signal-point" style="top: 62%; left: 28%; animation-delay: 0.4s;"></span>
+          <span class="signal-point" style="top: 42%; left: 60%; animation-delay: 1s;"></span>
+          <span class="signal-point" style="top: 58%; left: 84%; animation-delay: 1.6s;"></span>
+        </div>
+        <p style="margin-top: 12px;">Continuous verification keeps the AI → QAI → AGI pathway resilient.</p>
+      </div>
+    </div>
+
+    <div class="quantum-stream" data-tilt>
+      <ul>
+        <li><span>01 · Twekee orchestration cycle</span> <strong>Live</strong></li>
+        <li><span>02 · QSC Cloud sync</span> <strong>Active</strong></li>
+        <li><span>03 · Cognitive memory refresh</span> <strong>Stable</strong></li>
+        <li><span>04 · Ecosystem handshake</span> <strong>Secure</strong></li>
+        <li><span>05 · Quantum-aware evaluation</span> <strong>Calibrating</strong></li>
+        <li><span>06 · Partner tool bridge</span> <strong>Green</strong></li>
+      </ul>
+    </div>
+
+    <div class="timeline-wrapper">
+      <div class="timeline-track">
+        <div class="timeline-item" data-tilt>
+          <div class="timeline-node">AI</div>
+          <div class="timeline-label">Today’s AI</div>
+          <div class="timeline-desc">
+            Point solutions and isolated models excel at narrow tasks but fade when context expands beyond a few prompts.
+          </div>
+        </div>
+
+        <div class="timeline-item" data-tilt>
+          <div class="timeline-node">QAI</div>
+          <div class="timeline-label">QAI Bridge</div>
+          <div class="timeline-desc">
+            Qera AI’s orchestration layer threads memory, reasoning, autonomy and governance across multiple tools.
+          </div>
+        </div>
+
+        <div class="timeline-item" data-tilt>
+          <div class="timeline-node">AGI</div>
+          <div class="timeline-label">AGI Horizon</div>
+          <div class="timeline-desc">
+            A practical north star where intelligence systems operate with continuity, ethics, and nation-scale readiness.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QAI BRIDGE -->
+  <section id="qai">
+    <div class="section-label">QAI Bridge</div>
+    <div class="section-grid-2">
+      <div>
+        <h2 class="section-header">QAI: The Missing Bridge Between AI and AGI</h2>
+        <p>
+          Qera AI publicly introduces the concept of <strong>QAI (Quantum-Aware Intelligence)</strong> —
+          a practical orchestration layer that connects today’s AI systems and nudges them toward
+          AGI-like behavior.
+        </p>
+        <p>
+          Unlike isolated AI models, QAI focuses on <strong>long-term context</strong>,
+          <strong>cognitive memory</strong>, <strong>cross-tool coordination</strong> and
+          <strong>reasoning workflows</strong> across an ecosystem.
+        </p>
+
+        <div class="highlight-box">
+          <strong>QAI in one line:</strong><br />
+          An orchestration layer that turns today’s AI tools into a more general, memory-aware,
+          reasoning system.
+        </div>
+      </div>
+      <div>
+        <p>
+          This QAI approach proposes a structured pathway:
+          <strong>AI → QAI → AGI</strong>, positioning QAI as the missing bridge in global discussions.
+        </p>
+        <p>
+          QAI, as introduced by <strong>Qera AI (India)</strong>, represents India’s contribution to
+          how future intelligence platforms may be designed and built. Twekee processes your requests through the QAI layer and returns intelligent results
+        </p>
+
+        <div class="chips-row">
+          <div class="chip">Context</div>
+          <div class="chip">Memory</div>
+          <div class="chip">Reasoning</div>
+          <div class="chip">Cross-Tool Flows</div>
+          <div class="chip">Ecosystem Intelligence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWEKEE -->
+  <section id="twekee">
+    <div class="section-label">Twekee</div>
+    <div class="section-grid-2">
+      <div>
+        <h2 class="section-header">Twekee – QAI-Powered Intelligence Assistant</h2>
+        <p>
+          <strong>Twekee</strong> is a unified next-generation intelligence assistant built on the
+          QAI orchestration layer. It is designed for:
+        </p>
+        <ul>
+          <li>memory across conversations</li>
+          <li>deep context continuity</li>
+          <li>multi-step reasoning</li>
+          <li>cross-application workflows</li>
+          <li>adaptive intelligence behavior over time</li>
+        </ul>
+        <p>
+          Twekee is the first practical implementation of the QAI concept inside a real, evolving
+          ecosystem. Twekee orchestrates multiple AI tools, evaluates your request, and responds with the best possible output.
+        </p>
+      </div>
+      <div>
+        <div class="highlight-box">
+          <strong>Status:</strong> In development · Target public launch 2026<br /><br />
+          <strong>Built in India.</strong> Growing for the world.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMMERSIVE LAYER -->
+  <section id="immersive">
+    <div class="section-label">Immersive Layer</div>
+    <h2 class="section-header">Operate QAI like a Neural Control Room</h2>
+    <p>
+      We design interfaces that feel cinematic yet operational. The immersive layer keeps founders, partners and institutions plugged into the state of QAI without hunting through dashboards.
+    </p>
+
+    <div class="flux-grid">
+      <article class="flux-card" data-tilt>
+        <div class="tag">Command Shell</div>
+        <h3>QAI Ops Console</h3>
+        <p>Route context streams, inspect reasoning trails, push policies and handoff agency to Twekee with confidence.</p>
+      </article>
+
+      <article class="flux-card" data-tilt>
+        <div class="tag">Holo Briefs</div>
+        <h3>Founder Signal Decks</h3>
+        <p>Auto-generated cinematic briefs summarize orchestration health, launches, and the India-first agenda.</p>
+      </article>
+
+      <article class="flux-card" data-tilt>
+        <div class="tag">Field Nodes</div>
+        <h3>Twekee Mission Cards</h3>
+        <p>Every Twekee deployment spins up a mission card that tracks impact, guardrails and success metrics live.</p>
+      </article>
+
+      <article class="flux-card" data-tilt>
+        <div class="tag">Quantum Frame</div>
+        <h3>Context Preservation</h3>
+        <p>We maintain a cryptographically signed memory spine so long-horizon context never drifts or gets lost.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section id="ecosystem">
+    <div class="section-label">Ecosystem</div>
+    <h2 class="section-header">The Qera AI Ecosystem</h2>
+    <p>
+      Qera AI is not just a single product. It is an ecosystem of tools designed to work together under
+      the QAI layer.
+    </p>
+
+    <div class="cards-grid">
+      <article class="card">
+        <div class="card-title">1️⃣ Twekee</div>
+        <p>QAI-powered intelligence assistant for individuals, teams and future enterprises.</p>
+        <p class="card-pill">Status: In development</p>
+      </article>
+
+      <article class="card">
+        <div class="card-title">2️⃣ QSC Cloud</div>
+        <p>Storage, data and productivity backbone for Qera AI apps, powering Twekee and future tools.</p>
+        <p class="card-pill">Status: Planning / Internal use</p>
+      </article>
+
+      <article class="card">
+        <div class="card-title">3️⃣ DCineQuantum AI</div>
+        <p>Private AI-driven film-making and virtual production pipeline for Qera AI’s cinematic projects.</p>
+        <p class="card-pill">Status: Private internal pipeline</p>
+      </article>
+
+      <article class="card">
+        <div class="card-title">4️⃣ QeraStack (Future)</div>
+        <p>Internal intelligence OS and ERP-style control layer for products, analytics and orchestration.</p>
+        <p class="card-pill">Status: Future roadmap</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section id="vision">
+    <div class="section-label">Vision</div>
+    <h2 class="section-header">Our Vision for India</h2>
+    <p>
+      For years, Indian talent has helped build the world’s biggest tech companies — yet the core AI
+      platforms and intelligence layers largely sit outside our country.
+    </p>
+    <p>
+      Qera AI aims to help change that by building an <strong>India-first intelligence ecosystem</strong>
+      that:
+    </p>
+    <ul>
+      <li>keeps tools and data under Indian control</li>
+      <li>empowers creators, startups and industries with home-grown intelligence</li>
+      <li>designs systems that are future-ready, including quantum-aware architectures</li>
+    </ul>
+    <p>
+      We believe India should not only <strong>use</strong> AI, India should help
+      <strong>define</strong> the future of intelligence.
+    </p>
+  </section>
+
+  <!-- CONTRIBUTION -->
+  <section id="contribution">
+    <div class="section-label">Contribution</div>
+    <h2 class="section-header">Our Contribution to the Global AI Journey</h2>
+    <p>
+      Qera AI’s core contribution is the public articulation and implementation of the
+      <strong>QAI bridge</strong> concept:
+    </p>
+    <ul>
+      <li>proposing QAI as a structured layer between AI and AGI</li>
+      <li>focusing on orchestration, memory and cross-tool reasoning</li>
+      <li>implementing QAI within a real ecosystem through Twekee</li>
+      <li>framing a practical path: <strong>AI → QAI → AGI → beyond</strong></li>
+    </ul>
+    <p>
+      This work begins from India but is designed to be globally relevant. QAI, as introduced by
+      <strong>Qera AI LLP</strong>, is a starting blueprint for how future intelligence platforms may
+      be structured.
+    </p>
+    <p style="margin-top: 12px; font-size: 13px;">
+      We welcome researchers, builders and institutions who are interested in exploring this bridge
+      further.
+    </p>
+  </section>
+
+  <!-- FOUNDER + CEO -->
+  <section id="founder">
+    <div class="section-label">Founder</div>
+    <div class="founder-layout">
+      <!-- Photos column -->
+      <div class="founder-photos-grid">
+        <div class="founder-photo-wrap">
+          <!-- Replace with your real photo -->
+          <div class="founder-glow"></div>
+          <img src="assets/founder.jpeg" alt="Dhooms Kanna – Founder of Qera AI" />
+          <div class="founder-tag">Founder & CVO</div>
+        </div>
+
+        <div class="founder-photo-wrap">
+          <!-- Replace with CEO photo -->
+          <div class="founder-glow"></div>
+          <img src="assets/ceo.jpeg" alt="Vinoth Rajeshwar – CEO of Qera AI" />
+          <div class="founder-tag">Co-founder & CEO</div>
+        </div>
+      </div>
+
+      <!-- Text column -->
+      <div class="founder-text">
+        <h3>Dhooms Kanna</h3>
+        <div class="founder-role">Founder & CVO, Qera AI</div>
+        <p>
+          A filmmaker turned AI founder, leading Qera AI’s mission to build India’s own intelligence
+          ecosystem — blending storytelling, systems thinking and a long-term national vision.
+        </p>
+
+        <div class="founder-divider"></div>
+
+        <h3>Vinoth Rajeshwar</h3>
+        <div class="founder-role">Co-founder & CEO, Qera AI</div>
+        <p>
+          A real-time analyst and operator, steering Qera AI’s execution — from product to partnerships
+          — toward a strong, India-first intelligence ecosystem.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPANY -->
+  <section id="company">
+    <div class="section-label">Company</div>
+    <h2 class="section-header">Qera AI – Company Overview</h2>
+    <p>
+      <strong>Name:</strong> Qera AI LLP<br />
+      <strong>Type:</strong> Technology & Intelligence Ecosystem Company<br />
+      <strong>Country:</strong> India<br />
+      <strong>Base:</strong> Tamil Nadu, India
+    </p>
+    <p style="margin-top: 16px;">
+      Qera AI focuses on:
+    </p>
+    <ul>
+      <li>AI assistants and orchestration systems (QAI, Twekee)</li>
+      <li>Cloud and storage backbones (QSC Cloud)</li>
+      <li>AI for creative industries (DCineQuantum AI)</li>
+      <li>Internal intelligence OS and ERP (QeraStack – roadmap)</li>
+    </ul>
+    <p style="font-size: 12px; color: var(--text-soft); margin-top: 10px;">
+      Full legal and registration details are available on request for banks, DPIIT or institutional
+      partners.
+    </p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <h2 class="section-header">Contact Qera AI</h2>
+    <div class="section-grid-2">
+      <div class="contact-list">
+        <p>For partnerships, institutional collaborations, or enterprise discussions:</p>
+        <p class="contact-email">📧 Founder: founder@qeraai.in</p>
+        <p class="contact-email">📧 CEO: vinoth@qeraai.in</p>
+        <p class="contact-email">📧 Business & Partnerships: contact@qeraai.in</p>
+        <p style="margin-top: 12px;">📍 Location: Tamil Nadu, India</p>
+      </div>
+      <div>
+        <p style="font-size: 13px;">
+          Follow us (coming soon):<br />
+          [LinkedIn] · [X] – official pages will be linked after public launch.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>© Qera AI LLP, India. Building India’s next-gen intelligence ecosystem.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+    </div>
+  </footer>
+
+  <!-- JS: Particles + Scroll Animations -->
+  <script>
+    // ---------- Simple particle field for hero background ----------
+    const canvas = document.getElementById("hero-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let w, h;
+
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function createParticles() {
+      particles = [];
+      const count = Math.floor((w * h) / 16000); // density
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          r: Math.random() * 2 + 0.5,
+        });
+      }
+    }
+    createParticles();
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "rgba(0,229,255,0.68)";
+      const lineDist = 110;
+
+      // draw dots
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // lines
+      ctx.strokeStyle = "rgba(0,229,255,0.18)";
+      ctx.lineWidth = 0.6;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < lineDist) {
+            const alpha = 1 - dist / lineDist;
+            ctx.strokeStyle = "rgba(0,229,255," + alpha * 0.22 + ")";
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function updateParticles() {
+      for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
+      }
+    }
+
+    function animate() {
+      updateParticles();
+      drawParticles();
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // ---------- Custom cursor ----------
+    const cursorDot = document.querySelector(".cursor-dot");
+    const cursorOutline = document.querySelector(".cursor-outline");
+    let cursorActive = false;
+
+    function moveCursor(e) {
+      const { clientX, clientY } = e;
+      cursorDot.style.transform = `translate3d(${clientX - 4}px, ${clientY - 4}px, 0)`;
+      cursorOutline.style.transform = `translate3d(${clientX - 18}px, ${clientY - 18}px, 0)`;
+      if (!cursorActive) {
+        cursorDot.style.opacity = 1;
+        cursorOutline.style.opacity = 1;
+        cursorActive = true;
+      }
+    }
+
+    window.addEventListener("mousemove", moveCursor);
+
+    window.addEventListener("mousedown", () => {
+      cursorOutline.style.width = "24px";
+      cursorOutline.style.height = "24px";
+      cursorOutline.style.borderColor = "rgba(0,229,255,0.8)";
+    });
+
+    window.addEventListener("mouseup", () => {
+      cursorOutline.style.width = "36px";
+      cursorOutline.style.height = "36px";
+      cursorOutline.style.borderColor = "rgba(0,229,255,0.4)";
+    });
+
+    window.addEventListener("mouseleave", () => {
+      cursorDot.style.opacity = 0;
+      cursorOutline.style.opacity = 0;
+      cursorActive = false;
+    });
+
+    // ---------- GSAP scroll animations ----------
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero entrance
+    gsap.from(".hero-left", {
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    gsap.from(".q-orbit-wrapper", {
+      scale: 0.7,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power3.out",
+      delay: 0.2,
+    });
+
+    // Rotate orbit slowly
+    gsap.to(".orbit-ring", {
+      rotate: 360,
+      duration: 60,
+      ease: "none",
+      repeat: -1,
+    });
+
+    gsap.from(".metric-card", {
+      y: 20,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      stagger: 0.12,
+      delay: 0.3,
+    });
+
+    // Section reveals
+    const sections = document.querySelectorAll(
+      "#signals, #qai, #twekee, #immersive, #ecosystem, #vision, #contribution, #founder, #company, #contact"
+    );
+
+    sections.forEach((sec) => {
+      gsap.from(sec, {
+        scrollTrigger: {
+          trigger: sec,
+          start: "top 75%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+      });
+    });
+
+    // Ecosystem cards stagger
+    gsap.from(".card", {
+      scrollTrigger: {
+        trigger: "#ecosystem",
+        start: "top 70%",
+      },
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      ease: "power2.out",
+      stagger: 0.12,
+    });
+
+    gsap.from(".signal-panel", {
+      scrollTrigger: {
+        trigger: "#signals",
+        start: "top 70%",
+      },
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.12,
+    });
+
+    gsap.from(".timeline-item", {
+      scrollTrigger: {
+        trigger: ".timeline-wrapper",
+        start: "top 75%",
+      },
+      y: 20,
+      opacity: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      stagger: 0.1,
+    });
+
+    gsap.from(".flux-card", {
+      scrollTrigger: {
+        trigger: "#immersive",
+        start: "top 70%",
+      },
+      y: 24,
+      opacity: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      stagger: 0.12,
+    });
+
+    gsap.from(".quantum-stream li", {
+      scrollTrigger: {
+        trigger: ".quantum-stream",
+        start: "top 80%",
+      },
+      opacity: 0,
+      y: 12,
+      duration: 0.6,
+      ease: "power2.out",
+      stagger: 0.08,
+    });
+
+    // ---------- Micro interactions ----------
+    const tiltTargets = document.querySelectorAll("[data-tilt]");
+
+    tiltTargets.forEach((card) => {
+      card.addEventListener("mousemove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const rotateY = ((x / rect.width) - 0.5) * 10;
+        const rotateX = (0.5 - y / rect.height) * 8;
+
+        gsap.to(card, {
+          rotateY,
+          rotateX,
+          transformPerspective: 600,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+      });
+
+      card.addEventListener("mouseleave", () => {
+        gsap.to(card, {
+          rotateY: 0,
+          rotateX: 0,
+          duration: 0.6,
+          ease: "power2.out",
+        });
+      });
+    });
+  </script>
+</body>
+</html>
