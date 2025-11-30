@@ -33,9 +33,8 @@ export default async function handler(req, res) {
         headers: {
           Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": "https://qeraai.in",
-          "X-Title": "Qera AI – Twekee FAQ Bot"
         },
+        
         body: JSON.stringify({
           model: "meta-llama/llama-3.1-8b-instruct",
           messages: [
