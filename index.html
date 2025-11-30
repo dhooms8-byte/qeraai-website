@@ -12,9 +12,12 @@
   />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#000000">
 
   <!-- Open Graph (for link previews) -->
   <meta property="og:title" content="Qera AI LLP – QAI Bridge towards AGI" />
@@ -100,6 +103,19 @@
       transform: perspective(900px) rotateX(65deg);
       transform-origin: top;
       top: -40%;
+    }
+
+    /* Particle background overlay */
+    html::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("assets/particle-bg.png");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .cosmic-layer {
@@ -1291,6 +1307,308 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
+    /* ============================
+       TWEEKEE CHAT WIDGET
+       ============================ */
+    .twekee-chat-bubble {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(135deg, #00e5ff, #51ffe6);
+      color: #020308;
+      padding: 14px 20px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 20px rgba(0, 229, 255, 0.4), 0 0 40px rgba(0, 229, 255, 0.2);
+      z-index: 9998;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .twekee-chat-bubble:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(0, 229, 255, 0.5), 0 0 50px rgba(0, 229, 255, 0.3);
+    }
+
+    .twekee-chat-bubble::before {
+      content: "💬";
+      font-size: 18px;
+    }
+
+    .twekee-chat-window {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      width: 380px;
+      max-width: calc(100vw - 48px);
+      height: 520px;
+      max-height: calc(100vh - 120px);
+      background: rgba(5, 7, 16, 0.98);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 229, 255, 0.2);
+      display: none;
+      flex-direction: column;
+      z-index: 9999;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+
+    .twekee-chat-window.open {
+      display: flex;
+      animation: twekeeSlideUp 0.3s ease-out;
+    }
+
+    @keyframes twekeeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .twekee-chat-header {
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(81, 255, 230, 0.1));
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .twekee-chat-header-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .twekee-chat-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00e5ff, #51ffe6);
+      color: #020308;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+    }
+
+    .twekee-chat-header-text h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .twekee-chat-status {
+      font-size: 11px;
+      color: #00e5ff;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .twekee-chat-close {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 28px;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      line-height: 1;
+    }
+
+    .twekee-chat-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .twekee-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .twekee-chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .twekee-chat-messages::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+    }
+
+    .twekee-chat-messages::-webkit-scrollbar-thumb {
+      background: rgba(0, 229, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    .twekee-chat-messages::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 229, 255, 0.5);
+    }
+
+    .twekee-message {
+      display: flex;
+      gap: 10px;
+      animation: twekeeMessageFade 0.3s ease-out;
+    }
+
+    @keyframes twekeeMessageFade {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .twekee-message-user {
+      flex-direction: row-reverse;
+    }
+
+    .twekee-message-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .twekee-message-bot .twekee-message-avatar {
+      background: linear-gradient(135deg, #00e5ff, #51ffe6);
+      color: #020308;
+    }
+
+    .twekee-message-user .twekee-message-avatar {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .twekee-message-content {
+      max-width: 75%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      color: #ffffff;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .twekee-message-bot .twekee-message-content {
+      background: rgba(0, 229, 255, 0.15);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+    }
+
+    .twekee-message-user .twekee-message-content {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .twekee-message-content p {
+      margin: 0;
+      color: #ffffff;
+    }
+
+    .twekee-chat-input-container {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(0, 229, 255, 0.2);
+      background: rgba(5, 7, 16, 0.8);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .twekee-chat-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .twekee-chat-input:focus {
+      border-color: rgba(0, 229, 255, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+    }
+
+    .twekee-chat-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .twekee-chat-send {
+      background: linear-gradient(135deg, #00e5ff, #51ffe6);
+      border: none;
+      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #020308;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .twekee-chat-send:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+    }
+
+    .twekee-chat-send:active {
+      transform: scale(0.95);
+    }
+
+    .twekee-chat-send svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media (max-width: 640px) {
+      .twekee-chat-window {
+        width: calc(100vw - 24px);
+        right: 12px;
+        bottom: 80px;
+        height: calc(100vh - 100px);
+      }
+
+      .twekee-chat-bubble {
+        bottom: 16px;
+        right: 16px;
+        padding: 12px 16px;
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1393,26 +1711,15 @@
     </div>
 
     <div class="hero-right">
-      <div class="q-orbit-wrapper">
-        <div class="hero-status-strip">
-          <span class="hero-status-dot"></span>
-          <span>QAI Layer · Online</span>
+      <div class="hero-right">
+        <!-- BEGIN: HERO VIDEO FRAME -->
+        <div class="hero-video-frame">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="assets/humanoid-blink.mp4" type="video/mp4" />
+            </video>
         </div>
-
-        <div class="q-orbit">
-          <div class="orbit-ring">
-            <span class="orbit-dot one"></span>
-            <span class="orbit-dot two"></span>
-            <span class="orbit-dot three"></span>
-          </div>
-          <div class="q-icon-circle">
-            <!-- 🔷 Q Symbol – replace src with your stylized Q icon -->
-            <img src="assets/q-symbol.png" alt="Q Symbol" />
-          </div>
-
-          <div class="q-orbit-caption">AI → QAI → AGI</div>
-        </div>
-      </div>
+        <!-- END: HERO VIDEO FRAME -->
+      </div>      
     </div>
   </section>
 
@@ -1555,11 +1862,11 @@
           QAI orchestration layer. It is designed for:
         </p>
         <ul>
-          <li>memory across conversations</li>
-          <li>deep context continuity</li>
-          <li>multi-step reasoning</li>
-          <li>cross-application workflows</li>
-          <li>adaptive intelligence behavior over time</li>
+          <li>Memory across conversations</li>
+          <li>Deep context continuity</li>
+          <li>Multi-step reasoning</li>
+          <li>Cross-application workflows</li>
+          <li>Adaptive intelligence behavior over time</li>
         </ul>
         <p>
           Twekee is the first practical implementation of the QAI concept inside a real, evolving
@@ -1659,9 +1966,9 @@
       that:
     </p>
     <ul>
-      <li>keeps tools and data under Indian control</li>
-      <li>empowers creators, startups and industries with home-grown intelligence</li>
-      <li>designs systems that are future-ready, including quantum-aware architectures</li>
+      <li>Keeps tools and data under Indian control</li>
+      <li>Empowers creators, startups and industries with home-grown intelligence</li>
+      <li>Designs systems that are future-ready, including quantum-aware architectures</li>
     </ul>
     <p>
       We believe India should not only <strong>use</strong> AI, India should help
@@ -1678,10 +1985,10 @@
       <strong>QAI bridge</strong> concept:
     </p>
     <ul>
-      <li>proposing QAI as a structured layer between AI and AGI</li>
-      <li>focusing on orchestration, memory and cross-tool reasoning</li>
-      <li>implementing QAI within a real ecosystem through Twekee</li>
-      <li>framing a practical path: <strong>AI → QAI → AGI → beyond</strong></li>
+      <li>Proposing QAI as a structured layer between AI and AGI</li>
+      <li>Focusing on orchestration, memory and cross-tool reasoning</li>
+      <li>Implementing QAI within a real ecosystem through Twekee</li>
+      <li>Framing a practical path: <strong>AI → QAI → AGI → beyond</strong></li>
     </ul>
     <p>
       This work begins from India but is designed to be globally relevant. QAI, as introduced by
@@ -1720,7 +2027,7 @@
         <h3>Dhooms Kanna</h3>
         <div class="founder-role">Founder & CVO, Qera AI</div>
         <p>
-          A filmmaker turned AI founder, leading Qera AI’s mission to build India’s own intelligence
+          A filmmaker turned AI founder, leading Qera AI's mission to build India's own intelligence
           ecosystem — blending storytelling, systems thinking and a long-term national vision.
         </p>
 
@@ -1729,7 +2036,7 @@
         <h3>Vinoth Rajeshwar</h3>
         <div class="founder-role">Co-founder & CEO, Qera AI</div>
         <p>
-          A real-time analyst and operator, steering Qera AI’s execution — from product to partnerships
+          A real-time analyst and operator, steering Qera AI's execution — from product to partnerships
           — toward a strong, India-first intelligence ecosystem.
         </p>
       </div>
@@ -2053,5 +2360,47 @@
       });
     });
   </script>
+
+  <!-- Twekee Chat Widget -->
+  <div id="twekee-chat-bubble" class="twekee-chat-bubble">
+    <span>Chat with Twekee</span>
+  </div>
+
+  <div id="twekee-chat-window" class="twekee-chat-window">
+    <div class="twekee-chat-header">
+      <div class="twekee-chat-header-content">
+        <div class="twekee-chat-avatar">T</div>
+        <div class="twekee-chat-header-text">
+          <h3>Twekee</h3>
+          <span class="twekee-chat-status">Online</span>
+        </div>
+      </div>
+      <button id="twekee-chat-close" class="twekee-chat-close" aria-label="Close chat">×</button>
+    </div>
+    <div id="twekee-chat-messages" class="twekee-chat-messages">
+      <div class="twekee-message twekee-message-bot">
+        <div class="twekee-message-avatar">T</div>
+        <div class="twekee-message-content">
+          <p>Hi, I'm Twekee. How can I help you today?</p>
+        </div>
+      </div>
+    </div>
+    <div class="twekee-chat-input-container">
+      <input
+        type="text"
+        id="twekee-chat-input"
+        class="twekee-chat-input"
+        placeholder="Type your message..."
+        aria-label="Chat input"
+      />
+      <button id="twekee-chat-send" class="twekee-chat-send" aria-label="Send message">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="twekee-faq.js"></script>
 </body>
 </html>
